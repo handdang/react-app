@@ -7,19 +7,29 @@ function Counter({ title, initValue }){
   // let setCount = countState[1];
   const [count ,setCount] = useState(initValue);
   const [step, setStep] = useState(1);
-
+  const [history, setHistory] = useState([5,5]);
   function up(){
-    setCount(count + step);
+    const newCount = count + step;
+    setCount(newCount);
+    const newHistory = [...history];
+    newHistory.push(newCount);
+    setHistory(newHistory);
+  }
+  function stepHandeler() {
+    return (evt) => {
+      setStep(Number(evt.target.value));
+    };
   }
   return  <div>
     <h1>{title}</h1>
     <button onClick={up}>+</button> {count}
-    <input type="number" value={step} onChange={(evt)=>{
-      console.log('change', evt.target.value);
-      setStep(Number(evt.target.value))
-    }}/>
+    <input type="number" value={step} onChange={stepHandeler()}/>
     {count}
+    <ol>
+      {history.map((e,index)=><li key={index}>{e}</li>)}
+    </ol>
   </div>
+
 }
 function App() {
   return (
@@ -30,3 +40,18 @@ function App() {
 }
 
 export default App;
+
+
+
+// map함수
+// let num = [1,2,3];
+// num2 = num.map((e)=>{
+//     console.log('call',e);
+//     return e*10; 
+// })
+// num, num2
+
+// 생략 하면
+// let num = [1,2,3];
+// num2 = num.map((e)=>e*10)
+// num, num2
