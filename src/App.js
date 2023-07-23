@@ -6,12 +6,20 @@ function Counter({ title, initValue }){
   // let count = countState[0];
   // let setCount = countState[1];
   const [count ,setCount] = useState(initValue);
+  const [step, setStep] = useState(1);
 
   function up(){
-    setCount(count + 1);
+    setCount(count + step);
   }
-  return  <div><h1>{title}</h1>
-  <button onClick={up}>+</button> {count}</div>
+  return  <div>
+    <h1>{title}</h1>
+    <button onClick={up}>+</button> {count}
+    <input type="number" value={step} onChange={(evt)=>{
+      console.log('change', evt.target.value);
+      setStep(Number(evt.target.value))
+    }}/>
+    {count}
+  </div>
 }
 function App() {
   return (
